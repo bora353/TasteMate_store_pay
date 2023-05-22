@@ -24,17 +24,65 @@
             <img th:src="@{/img/} + ${storeVO.oriFilename}" alt="Product Image" class="img-fluid">
         </div>
         <div class="col-lg-6">
-            <h1 th:text="${storeVO.storeName}" class="mb-4 purple2"></h1><br><br>
+            <h1 th:text="${storeVO.storeName}" class="mb-4 purple2"></h1><br>
             <p th:text="${storeVO.category1}" class="mb-4"></p>
             <p th:text="'주소 : ' + ${storeVO.storeAddress}" class="mb-4"></p>
-            <p th:text="'번호 : ' + ${storeVO.phoneNumber}" class="mb-4"></p><br><br>
+            <p th:text="'전화번호 : ' + ${storeVO.phoneNumber}" class="mb-4"></p>
+
+            별점 추가!!!!!!!!!!<br><br>
+<!--            <p th:text="${storeVO.storeLati}" class="mb-4"></p>
+            <p th:text="${storeVO.storeLongi}" class="mb-4"></p>-->
+            <div id="map" style="width:450px;height:300px;"></div><br>
+
             <a href="#" class="btn btn-primary">찜하기</a>
             <a href="#" class="btn btn-warning">예약하기</a>
+            <a class="btn btn-success" th:href="@{/store/list}">목록으로</a>
+
+            <br><br><br>
         </div>
     </div>
 </div>
 
 
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8abceac52f5d250937ec886cf8cd8d21"></script>
+
+<script th:inline="javascript">
+    //카카오 지도 사용하기
+    var container = document.getElementById('map');
+
+
+    var lati =  /*[[${storeVO.storeLati}]]*/;
+    var longi = /*[[${storeVO.storeLongi}]]*/;
+
+    console.log(lati);
+    console.log(longi);
+
+
+    var options = {
+        center: new kakao.maps.LatLng(lati, longi),
+       /* https://map.kakao.com/?urlX=523954.0&urlY=1084098.0*/
+        level: 3
+    };
+
+    var map = new kakao.maps.Map(container, options);
+
+
+    //마커찍기
+    // 마커가 표시될 위치입니다
+    var markerPosition  = new kakao.maps.LatLng(lati, longi);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+    // marker.setMap(null);
+</script>
 
 
 <th:block th:replace="header_footer/footer :: footerFragment"></th:block>

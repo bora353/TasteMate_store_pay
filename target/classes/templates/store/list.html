@@ -19,20 +19,52 @@
     <div class="container">
         <h1 class="text-center mt-5 mb-5 purple2">IT WILL 맛집</h1>
 
-        <div class="row mb-5">
+            <button class="btn btn-warning">가성비순</button>
+            <button class="btn btn-warning">인기순</button>
+
+        <div class="col-md-2 float-right">
+            <div class="form-group">
+                <select class="form-control" id="cuisine-select">
+                    <option selected disabled>FOOD STYLE</option>
+                    <option value="한식">한식</option>
+                    <option value="중식">중식</option>
+                    <option value="일식">일식</option>
+                    <option value="양식">양식</option>
+                    <option value="퓨전">퓨전</option>
+                    <option value="푸드코트">푸드코트</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container">
+        <div class="row col-md-12 mb-5">
                 <div th:each="storeVO : ${storeList}" class="image-container">
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
                     <img th:src="@{/img/} + ${storeVO.oriFilename}" class="img-fluid img-thumbnail" />
                     </br> </br>
                     <h5 th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}" class="purple"></h5>
-                    <span th:text="'('+${storeVO.category1}+')'" class="purple2"></span>
+                    <span th:text="${storeVO.category1}" class="purple2"></span>
                     <div th:text="${storeVO.storeAddress}" class="gray"></div>
                     </a>
                 </div>
         </div>
 
+        <div class="text-right">
+        <a th:href="@{/store/register}" class="btn btn-danger">
+            나만의 맛집등록
+        </a></div><br><br><br>
+
     </div>
+
+
+
+
+
 </main>
 
 
