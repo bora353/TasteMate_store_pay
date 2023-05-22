@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="header_footer/header :: headerFragment"></th:block>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>store list</title>
+    <link rel="stylesheet" th:href="@{/css/store_css.css}">
+
+</head>
+<body>
+
+<!--main-->
+<main>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5 purple2">IT WILL 맛집</h1>
+
+        <div class="row mb-5">
+                <div th:each="storeVO : ${storeList}" class="image-container">
+
+                    <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
+                    <img th:src="@{/img/} + ${storeVO.oriFilename}" class="img-fluid img-thumbnail" />
+                    </br> </br>
+                    <h5 th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}" class="purple"></h5>
+                    <span th:text="'('+${storeVO.category1}+')'" class="purple2"></span>
+                    <div th:text="${storeVO.storeAddress}" class="gray"></div>
+                    </a>
+                </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+<th:block th:replace="header_footer/footer :: footerFragment"></th:block>
+
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tastemate.mapper.StoreMapper">
+
+    <select id="store_getList" resultType="com.tastemate.domain.StoreVO">
+        select * from store
+    </select>
+
+    <select id="store_get" resultType="com.tastemate.domain.StoreVO">
+        select * from store
+        where store_idx = #{storeIdx}
+    </select>
+
+
+
+
+</mapper>
