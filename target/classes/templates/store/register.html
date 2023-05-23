@@ -40,34 +40,31 @@
 </head>
 <body>
 
-<!--userIdx(세션 연동)
-storeName,
-category1(옵션),
-storeAddress,
-storeLati,
-storeLongi,
-phoneNumber,
-oriFilename-->
+
 
 <div class="container">
   <div class="input-form-backgroud row">
     <div class="input-form col-md-12 mx-auto">
       <h3 class="mb-3 mb-5 purple2 text-center">나만의 맛집등록</h3>
-      <form th:action="@{/store/register}" method="post">
-        <div class="row">
+      <form th:action="@{/store/register}" method="post" enctype="multipart/form-data">
 
+
+        <div class="row">
           <div class="col-md-8 mb-3">
             <label for="storeName">맛집 이름</label>
             <input type="text" class="form-control" id="storeName" name="storeName" required>
           </div>
 
-          <!-- userIdx 세션에서 넣어줘. 등록한 사람만 수정, 삭제할 수 있게 insert 해야함 -->
+
+<!--
+           userIdx 세션에서 넣어줘. 등록한 사람만 수정, 삭제할 수 있게 insert 해야함
+-->
+
           <div class="col-md-4 mb-3">
             <label for="userIdx">사용자 ID</label>
             <input type="text" class="form-control" id="userIdx" name="userIdx" required>
             <input type="hidden" class="form-control" id="userName" name="userName">
           </div>
-
         </div>
 
         <div class="form-group">
@@ -106,9 +103,11 @@ oriFilename-->
           <label for="phoneNumber">맛집 전화번호</label>
           <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
         </div>
+
         <div class="mb-3">
           <label for="oriFilename">이미지 파일명</label>
-          <input type="file" class="form-control" id="oriFilename" name="oriFilename" required>
+          <input type="file" class="form-control" id="oriFilename" name="oriFilename"
+                 accept="image/png, image/gif, image/jpeg" multiple="multiple" required>
         </div>
         <div class="text-center mt-5 mb-3">
         <button class="btn btn-primary" type="submit">맛집 등록 요청</button>

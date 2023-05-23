@@ -4,10 +4,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
 */
 
-body {
+/*body {
     font-family: 'Noto Serif KR', serif;
-
-}
+}*/
 
 .image-container {
     display: inline-block;
@@ -26,3 +25,8 @@ body {
 .gray {
     color: gray;
 }
+
+/* 등록 폼 */
+
+
+

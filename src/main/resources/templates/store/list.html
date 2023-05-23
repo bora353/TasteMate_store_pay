@@ -13,6 +13,8 @@
 
 </head>
 <body>
+<!--<img th:src="@{file:///C:/upload/1a52a841-faf2-47b9-9746-3403abfb113d_dog.jpeg}"
+     alt="Product Image" class="img-fluid">-->
 
 <!--main-->
 <main>
@@ -21,6 +23,7 @@
 
             <button class="btn btn-warning">가성비순</button>
             <button class="btn btn-warning">인기순</button>
+            <button class="btn btn-warning">거리순</button>
 
         <div class="col-md-2 float-right">
             <div class="form-group">
@@ -37,15 +40,26 @@
         </div>
     </div>
 
-
-
+<!--<td th:text="${storeList}"></td>-->
 
     <div class="container">
         <div class="row col-md-12 mb-5">
                 <div th:each="storeVO : ${storeList}" class="image-container">
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
-                    <img th:src="@{/img/} + ${storeVO.oriFilename}" class="img-fluid img-thumbnail" />
+
+                    <!--  이게뭐죠  <td th:text="${storeVO.getOriFilename()}"></td>-->
+
+
+
+
+                    <img th:src="@{/img/} + ${storeVO.filename}" class="img-fluid img-thumbnail" />
+
+<!--
+                    <img th:src="@{C:\upload\} + ${storeVO.filename}" class="img-fluid img-thumbnail" />
+-->
+
+
                     </br> </br>
                     <h5 th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}" class="purple"></h5>
                     <span th:text="${storeVO.category1}" class="purple2"></span>

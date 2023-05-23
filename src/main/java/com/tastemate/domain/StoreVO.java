@@ -1,6 +1,7 @@
 package com.tastemate.domain;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class StoreVO {
@@ -16,8 +17,9 @@ public class StoreVO {
 
   private String phoneNumber;
   private String storeCount;
+
   private String filename;
-  private String oriFilename;
+  private MultipartFile oriFilename;
 
 
 

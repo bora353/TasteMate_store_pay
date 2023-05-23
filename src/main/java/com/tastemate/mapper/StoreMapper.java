@@ -12,4 +12,7 @@ public interface StoreMapper {
     public List<StoreVO> store_getList();
     StoreVO store_get(int storeIdx);
 
+    int store_register(StoreVO storeVO);
+
+
 }
