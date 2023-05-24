@@ -5,11 +5,10 @@
 
 <th:block th:replace="header_footer/header :: headerFragment"></th:block>
 
+
 <head>
     <meta charset="UTF-8">
     <title>store get</title>
-
-
     <link rel="stylesheet" th:href="@{/css/store_css.css}">
 
 </head>
@@ -30,8 +29,10 @@
             <p th:text="'전화번호 : ' + ${storeVO.phoneNumber}" class="mb-4"></p>
 
             별점 추가!!!!!!!!!!<br><br>
-<!--            <p th:text="${storeVO.storeLati}" class="mb-4"></p>
-            <p th:text="${storeVO.storeLongi}" class="mb-4"></p>-->
+<!--
+            <p th:text="${storeVO.storeLati}" class="mb-4"></p>
+            <p th:text="${storeVO.storeLongi}" class="mb-4"></p>
+-->
             <div id="map" style="width:450px;height:300px;"></div><br>
 
             <a href="#" class="btn btn-primary">찜하기</a>
@@ -44,6 +45,8 @@
 </div>
 
 
+
+
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8abceac52f5d250937ec886cf8cd8d21"></script>
 
@@ -52,7 +55,7 @@
     var container = document.getElementById('map');
 
 
-    var lati =  /*[[${storeVO.storeLati}]]*/;
+    var lati = /*[[${storeVO.storeLati}]]*/;
     var longi = /*[[${storeVO.storeLongi}]]*/;
 
     console.log(lati);
@@ -85,7 +88,9 @@
 </script>
 
 
+
 <th:block th:replace="header_footer/footer :: footerFragment"></th:block>
 
 </body>
 </html>
+

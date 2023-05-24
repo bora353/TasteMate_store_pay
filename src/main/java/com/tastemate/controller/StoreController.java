@@ -25,19 +25,21 @@ public class StoreController {
     private StoreService service;
 
     @GetMapping("/list")
-    public String get(Model model){
+    public void get(Model model){
 
         List<StoreVO> storeVO = service.store_getList();
 
         model.addAttribute("storeList", storeVO);
 
-        return "/store/list";
+       // return "/store/list";
     }
 
     @GetMapping("/get")
     public void get(int storeIdx, Model model){
         log.info("get storeIdx :" + storeIdx);
 
+        StoreVO storeVO = service.store_get(storeIdx);
+        model.addAttribute("storeVO", storeVO);
 
     }
 
@@ -46,31 +48,11 @@ public class StoreController {
 
     }
 
-   /* @PostMapping("/register")
-    public String registerStoreVO(StoreVO storeVO, MultipartFile[] oriFilename, Model model){
 
-        log.info("register 확인 : " + storeVO);
+/*    @PostMapping("/register")
+    public String registerStoreVO(StoreVO storeVO, MultipartFile oriFilename){
 
-        String uploadFolder = "C:\\upload";
-
-        for (MultipartFile multipartFile : oriFilename) {
-
-            log.info("===========================");
-            log.info("upload file name : " + multipartFile.getOriginalFilename());
-            log.info("upload file size : " + multipartFile.getSize());
-
-            File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
-
-            try {
-                multipartFile.transferTo(saveFile);
-            }catch (Exception e) {
-                log.error(e.getMessage());
-            }
-        }
-
-
-        int result = service.store_register(storeVO);
-
+        service.saveFile(storeVO, oriFilename);
 
         return "redirect:/store/list";
     }*/

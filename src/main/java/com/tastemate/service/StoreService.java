@@ -41,7 +41,7 @@ public class StoreService {
     }
 
 
-    public void saveFile(StoreVO storeVO, MultipartFile multipartFile) {
+   /* public void saveFile(StoreVO storeVO, MultipartFile multipartFile) {
 
             if(multipartFile.isEmpty()){
                 return;
@@ -80,6 +80,52 @@ public class StoreService {
             log.info("Service 잘 변환되었나?" + storeVO1);
 
             int result = mapper.store_register(storeVO1);
+
+    }*/
+
+    public void saveFile(StoreVO storeVO, MultipartFile multipartFile) {
+
+        if(multipartFile.isEmpty()){
+            return;
+        }
+
+        String oriFilename = multipartFile.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+
+        String extension = oriFilename.substring(oriFilename.lastIndexOf("."));
+
+        oriFilename = oriFilename.substring(oriFilename.lastIndexOf("\\")+1);
+
+        String savedName = uuid + "_" + oriFilename;
+
+        String savedPath = fileDir + "/" +savedName;
+       //실패 String savedPath = "src/main/resources/static/img/" + savedName;
+
+        log.info(savedPath);
+
+        File saveFile = new File(savedPath);
+
+        try {
+            multipartFile.transferTo(saveFile);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        StoreVO storeVO1 = new StoreVO();
+
+        storeVO1.setFilename(oriFilename);
+        //storeVO1.setFilename(savedPath);
+        storeVO1.setUserIdx(storeVO.getUserIdx());
+        storeVO1.setStoreName(storeVO.getStoreName());
+        storeVO1.setCategory1(storeVO.getCategory1());
+        storeVO1.setStoreAddress(storeVO.getStoreAddress());
+        storeVO1.setStoreLati(storeVO.getStoreLati());
+        storeVO1.setStoreLongi(storeVO.getStoreLongi());
+        storeVO1.setPhoneNumber(storeVO.getPhoneNumber());
+
+        log.info("Service 잘 변환되었나?" + storeVO1);
+
+        int result = mapper.store_register(storeVO1);
 
     }
 }

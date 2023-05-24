@@ -16,10 +16,12 @@
 
     <insert id="store_register" parameterType="com.tastemate.domain.StoreVO">
         INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
-                           STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT
+                           STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+        FILENAME
                            )
         VALUES (store_seq.NEXTVAL, #{userIdx}, #{storeName}, #{category1},
-                #{storeAddress}, #{storeLati}, #{storeLongi}, #{phoneNumber}, 0
+                #{storeAddress}, #{storeLati}, #{storeLongi}, #{phoneNumber}, 0,
+        #{filename}
                 )
     </insert>
 

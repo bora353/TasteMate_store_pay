@@ -13,8 +13,6 @@
 
 </head>
 <body>
-<!--<img th:src="@{file:///C:/upload/1a52a841-faf2-47b9-9746-3403abfb113d_dog.jpeg}"
-     alt="Product Image" class="img-fluid">-->
 
 <!--main-->
 <main>
@@ -40,7 +38,7 @@
         </div>
     </div>
 
-<!--<td th:text="${storeList}"></td>-->
+    <!--<td th:text="${storeList}"></td>-->
 
     <div class="container">
         <div class="row col-md-12 mb-5">
@@ -48,9 +46,9 @@
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
 
-                    <!--  이게뭐죠  <td th:text="${storeVO.getOriFilename()}"></td>-->
 
 
+                  <!--      <td th:text="${storeVO.filename}"></td>-->
 
 
                     <img th:src="@{/img/} + ${storeVO.filename}" class="img-fluid img-thumbnail" />

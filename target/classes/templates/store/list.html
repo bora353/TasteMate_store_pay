@@ -21,6 +21,7 @@
 
             <button class="btn btn-warning">가성비순</button>
             <button class="btn btn-warning">인기순</button>
+            <button class="btn btn-warning">거리순</button>
 
         <div class="col-md-2 float-right">
             <div class="form-group">
@@ -37,15 +38,26 @@
         </div>
     </div>
 
-
-
+    <!--<td th:text="${storeList}"></td>-->
 
     <div class="container">
         <div class="row col-md-12 mb-5">
                 <div th:each="storeVO : ${storeList}" class="image-container">
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
-                    <img th:src="@{/img/} + ${storeVO.oriFilename}" class="img-fluid img-thumbnail" />
+
+
+
+                  <!--      <td th:text="${storeVO.filename}"></td>-->
+
+
+                    <img th:src="@{/img/} + ${storeVO.filename}" class="img-fluid img-thumbnail" />
+
+<!--
+                    <img th:src="@{C:\upload\} + ${storeVO.filename}" class="img-fluid img-thumbnail" />
+-->
+
+
                     </br> </br>
                     <h5 th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}" class="purple"></h5>
                     <span th:text="${storeVO.category1}" class="purple2"></span>
