@@ -15,4 +15,8 @@ public interface StoreMapper {
     int store_register(StoreVO storeVO);
 
 
+    //join
+    StoreVO getStoreWithMenu(int storeIdx);
+
+
 }

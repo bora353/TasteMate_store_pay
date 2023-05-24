@@ -22,11 +22,16 @@
     color: mediumpurple;
 }
 
+.yellow {
+    color : #FFA500;
+}
+
 .gray {
     color: gray;
 }
 
-/* 등록 폼 */
-
-
+.img_size {
+    width: 300px;
+    height: 300px;
+}
 

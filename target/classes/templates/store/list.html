@@ -11,6 +11,14 @@
     <title>store list</title>
     <link rel="stylesheet" th:href="@{/css/store_css.css}">
 
+    <style>
+        .yellow {
+            color : #FFA500;
+        }
+        .fs20{
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -42,26 +50,23 @@
 
     <div class="container">
         <div class="row col-md-12 mb-5">
-                <div th:each="storeVO : ${storeList}" class="image-container">
+                <div th:each="storeVO : ${storeList}" class="image-container mb-5">
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
+                        <img th:src="@{|/store/${storeVO.filename}|}" class="img-fluid <!--img-thumbnail-->" />
 
+                        </br> </br>
+                        <span th:text="${storeVO.category1}" class="purple2"></span><br>
 
+                        <div class="mb-2">
+                        <span th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}"
+                              class="purple fs20"></span>
+<!-- 별점 -->
+                        <span th:each="i: ${#numbers.sequence(1, 4)}" class="yellow">★</span><br>
+<!-- 별점 끝-->
+                        </div>
 
-                  <!--      <td th:text="${storeVO.filename}"></td>-->
-
-
-                    <img th:src="@{/img/} + ${storeVO.filename}" class="img-fluid img-thumbnail" />
-
-<!--
-                    <img th:src="@{C:\upload\} + ${storeVO.filename}" class="img-fluid img-thumbnail" />
--->
-
-
-                    </br> </br>
-                    <h5 th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}" class="purple"></h5>
-                    <span th:text="${storeVO.category1}" class="purple2"></span>
-                    <div th:text="${storeVO.storeAddress}" class="gray"></div>
+                        <div th:text="${storeVO.storeAddress}" class="gray"></div>
                     </a>
                 </div>
         </div>

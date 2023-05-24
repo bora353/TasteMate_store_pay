@@ -49,17 +49,10 @@ public class StoreController {
     }
 
 
-/*    @PostMapping("/register")
-    public String registerStoreVO(StoreVO storeVO, MultipartFile oriFilename){
-
-        service.saveFile(storeVO, oriFilename);
-
-        return "redirect:/store/list";
-    }*/
-
     @PostMapping("/register")
     public String registerStoreVO(StoreVO storeVO, MultipartFile oriFilename){
 
+        log.info("controller도착");
         service.saveFile(storeVO, oriFilename);
 
         return "redirect:/store/list";

@@ -28,6 +28,36 @@ VALUES (munu_seq.NEXTVAL, 1, '정식', 14000);
 INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
 VALUES (munu_seq.NEXTVAL, 1, '술국', 18000);
 
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 2, '가정식백반', 8000);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 2, '현미백반', 9000);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 2, '생삼겹살', 15000);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '슈퍼심플 버거', 4500);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '슈퍼심플 치즈버거', 5500);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '갈릭 감자튀김', 4000);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '리코타치즈 샐러드', 5600);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '슈퍼심플버거 세트', 8000);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '밀크쉐이크', 3500);
+
+INSERT INTO MENU(MENU_IDX, STORE_IDX, FOOD_NAME, PRICE)
+VALUES (munu_seq.NEXTVAL, 3, '피치망고에이드', 2000);
+
 
 COMMIT;
 ------------------------
@@ -60,38 +90,45 @@ CREATE SEQUENCE store_seq;
 
 INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                    STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
-                   FILENAME, ORI_FILENAME)
+                   FILENAME)
 VALUES (store_seq.NEXTVAL, 1, '농민백암순대', '한식',
         '서울 강남구 역삼로3길 20-4', 37.49490175032281, 127.03149331806011, '02-501-2772', 0,
-        'tastemate.jpg', 'tastemate.jpg');
+        'tastemate.jpg');
 
 INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                    STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
-                   FILENAME, ORI_FILENAME)
+                   FILENAME)
 VALUES (store_seq.NEXTVAL, 1, '청목', '한식',
         '서울 강남구 테헤란로 124 삼원타워', 37.49877828305107,127.0316730592617, '02-557-5534', 0,
-        'tastemate.jpg', 'tastemate.jpg');
+        'tastemate.jpg');
 
 INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                    STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
-                   FILENAME, ORI_FILENAME)
+                   FILENAME)
 VALUES (store_seq.NEXTVAL, 1, '슈퍼심플', '양식',
         '서울 강남구 테헤란로8길 28 1층', 37.49707535532538,  127.03176846245647, '0507-1352-4838', 0,
-        'tastemate.jpg', 'tastemate.jpg');
+        'tastemate.jpg');
 
 INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                    STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
-                   FILENAME, ORI_FILENAME)
+                   FILENAME)
 VALUES (store_seq.NEXTVAL, 1, '먼키 강남역점', '푸드코트',
         '서울 강남구 테헤란로 123 여삼빌딩 B1층', 37.49948341606353, 127.0313143000319, '0507-1477-7117', 0,
-        'tastemate.jpg', 'tastemate.jpg');
+        'tastemate.jpg');
 
 INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                    STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
-                   FILENAME, ORI_FILENAME)
+                   FILENAME)
 VALUES (store_seq.NEXTVAL, 1, '오미라식당', '퓨전',
         '서울 강남구 테헤란로 124 삼원타워 지하1층', 37.49877828305107,127.0316730592617, '0507-1384-0510', 0,
-        'tastemate.jpg', 'tastemate.jpg');
+        'tastemate.jpg');
+
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 1, '백초밥', '일식',
+        '서울 강남구 논현로95길 29-16', 37.5010198294737,127.033862319913, '02-556-8516', 0,
+        'tastemate.jpg');
 
 COMMIT;
 

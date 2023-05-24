@@ -36,58 +36,21 @@ public class StoreService {
 
     public StoreVO store_get(int storeIdx) {
 
-        StoreVO storeVO = mapper.store_get(storeIdx);
+        //StoreVO storeVO = mapper.store_get(storeIdx);
+        StoreVO storeVO = mapper.getStoreWithMenu(storeIdx);
         return storeVO;
     }
 
 
-   /* public void saveFile(StoreVO storeVO, MultipartFile multipartFile) {
-
-            if(multipartFile.isEmpty()){
-                return;
-            }
-
-            String oriFilename = multipartFile.getOriginalFilename();
-            String uuid = UUID.randomUUID().toString();
-
-            String extension = oriFilename.substring(oriFilename.lastIndexOf("."));
-
-            oriFilename = oriFilename.substring(oriFilename.lastIndexOf("\\")+1);
-
-            String savedName = uuid + "_" + oriFilename;
-
-            String savedPath = fileDir + savedName;
-
-            File saveFile = new File(fileDir, savedName);
-
-            try {
-                multipartFile.transferTo(saveFile);
-            } catch (Exception e) {
-                log.error(e.getMessage());
-            }
-
-            StoreVO storeVO1 = new StoreVO();
-
-
-            storeVO1.setUserIdx(storeVO.getUserIdx());
-            storeVO1.setStoreName(storeVO.getStoreName());
-            storeVO1.setCategory1(storeVO.getCategory1());
-            storeVO1.setStoreAddress(storeVO.getStoreAddress());
-            storeVO1.setStoreLati(storeVO.getStoreLati());
-            storeVO1.setStoreLongi(storeVO.getStoreLongi());
-            storeVO1.setPhoneNumber(storeVO.getPhoneNumber());
-
-            log.info("Service 잘 변환되었나?" + storeVO1);
-
-            int result = mapper.store_register(storeVO1);
-
-    }*/
-
     public void saveFile(StoreVO storeVO, MultipartFile multipartFile) {
 
+        String savedName = null;
+
         if(multipartFile.isEmpty()){
-            return;
-        }
+            savedName = "tastemate.jpg";
+
+        } else {
+
 
         String oriFilename = multipartFile.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
@@ -96,11 +59,10 @@ public class StoreService {
 
         oriFilename = oriFilename.substring(oriFilename.lastIndexOf("\\")+1);
 
-        String savedName = uuid + "_" + oriFilename;
+        savedName = uuid + "_" + oriFilename;
 
         String savedPath = fileDir + "/" +savedName;
-       //실패 String savedPath = "src/main/resources/static/img/" + savedName;
-
+       
         log.info(savedPath);
 
         File saveFile = new File(savedPath);
@@ -110,10 +72,14 @@ public class StoreService {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
+        } //else 끝
+
+
 
         StoreVO storeVO1 = new StoreVO();
 
-        storeVO1.setFilename(oriFilename);
+
+        storeVO1.setFilename(savedName);
         //storeVO1.setFilename(savedPath);
         storeVO1.setUserIdx(storeVO.getUserIdx());
         storeVO1.setStoreName(storeVO.getStoreName());
