@@ -33,12 +33,12 @@
         <result column="PHONE_NUMBER" property="phoneNumber"/>
         <result column="STORE_COUNT" property="storeCount"/>
         <result column="FILENAME" property="filename"/>
-        <collection property="starVO" ofType="StarVO">
-            <id column="STORE_IDX" property="starIdx" />
+        <collection property="starVO" ofType="StarVO" javaType="java.util.List">
+            <id column="STAR_IDX" property="starIdx" />
             <result column="STORE_IDX" property="storeIdx" />
             <result column="USER_IDX" property="userIdx" />
             <result column="STORE_STAR" property="storeStar" />
-<!--            <result column="USER_STAR" property="userStar" />-->
+            <result column="USER_STAR" property="userStar" />
             <result column="STORE_COMMENT" property="storeComment" />
         </collection>
     </resultMap>
@@ -56,15 +56,15 @@
 
 
     <select id="getStoreWithStar" resultMap="storeStarResultMap">
-        SELECT s.store_idx, s.user_idx, s.store_name, avg_star.STORE_STAR, avg_star.STORE_COMMENT
+        SELECT s.store_idx, s.user_idx, s.store_name, avg_star.STORE_STAR,
+            avg_star.STORE_COMMENT, avg_star.star_idx
         FROM STORE s
                  LEFT OUTER JOIN (
-            SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR, STORE_COMMENT
+            SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR, STORE_COMMENT,star_idx
             FROM STAR
-            GROUP BY store_idx, STORE_COMMENT
+            GROUP BY store_idx, STORE_COMMENT,star_idx
         ) avg_star ON s.store_idx = avg_star.store_idx
         where s.store_idx = #{storeIdx}
-        ORDER BY s.store_idx
     </select>
 
 

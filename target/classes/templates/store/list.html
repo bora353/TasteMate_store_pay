@@ -74,11 +74,11 @@
 
                             <!--<span th:each="i: ${#numbers.sequence(1, 4)}" class="yellow">★</span>-->
 
-                            <th:block th:with="starCount=${storeVO.starVO.storeStar}">
+                            <th:block th:with="starCount=${storeVO.starVO[0].storeStar}">
                                 <span th:if="${starCount != 0.0}" th:each="i: ${#numbers.sequence(1, starCount)}" class="yellow">★</span>
                             </th:block>
 
-                            <span th:text="${storeVO.starVO.storeStar}"></span>
+                            <span th:text="${storeVO.starVO[0].storeStar}"></span>
 
 <!-- 별점 끝-->
                         </div>

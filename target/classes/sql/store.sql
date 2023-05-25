@@ -60,7 +60,7 @@ VALUES (munu_seq.NEXTVAL, 3, '피치망고에이드', 2000);
 
 
 COMMIT;
-------------------------
+----------------------------------------------------------
 
 
 --drop table store;
@@ -133,3 +133,42 @@ VALUES (store_seq.NEXTVAL, 1, '백초밥', '일식',
 COMMIT;
 
 select * from store;
+
+---------------------------------------------------------------------
+
+--drop table star;
+--drop SEQUENCE star_seq;
+
+CREATE TABLE STAR
+(
+    STAR_IDX NUMBER NOT NULL
+    , STORE_IDX NUMBER NOT NULL
+    , USER_IDX NUMBER NOT NULL
+    , STORE_STAR NUMBER
+    , USER_STAR NUMBER
+    , STORE_COMMENT VARCHAR2(255 BYTE)
+    , CONSTRAINT STAR_PK PRIMARY KEY
+    (
+     STAR_IDX
+        )
+);
+
+CREATE SEQUENCE star_seq;
+
+
+INSERT INTO STAR(STAR_IDX, STORE_IDX, USER_IDX, STORE_STAR, USER_STAR, STORE_COMMENT)
+VALUES (star_seq.NEXTVAL, 1, 1, 4, 3, '맛있어요');
+
+INSERT INTO STAR(STAR_IDX, STORE_IDX, USER_IDX, STORE_STAR, USER_STAR, STORE_COMMENT)
+VALUES (star_seq.NEXTVAL, 1, 1, 2, 4, '불친절해요....!');
+
+INSERT INTO STAR(STAR_IDX, STORE_IDX, USER_IDX, STORE_STAR, USER_STAR, STORE_COMMENT)
+VALUES (star_seq.NEXTVAL, 2, 1, 5, 5, '인생 맛집!!');
+
+INSERT INTO STAR(STAR_IDX, STORE_IDX, USER_IDX, STORE_STAR, USER_STAR, STORE_COMMENT)
+VALUES (star_seq.NEXTVAL, 2, 1, 2, 3, '양이 적어요 ㅠㅠ');
+
+
+COMMIT;
+
+SELECT * FROM STAR;

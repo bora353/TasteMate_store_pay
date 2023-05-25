@@ -30,7 +30,7 @@ public class StoreVO {
   private List<MenuVO> menuVO;
 
   // join
-  private StarVO starVO;
+  private List<StarVO> starVO;
 
 
 }
