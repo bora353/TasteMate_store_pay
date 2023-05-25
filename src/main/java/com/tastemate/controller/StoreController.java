@@ -34,12 +34,15 @@ public class StoreController {
        // return "/store/list";
     }
 
-    @GetMapping("/get")
+    @GetMapping({"/get", "update"})
     public void get(int storeIdx, Model model){
-        log.info("get storeIdx :" + storeIdx);
+        log.info("get 또는 update storeIdx :" + storeIdx);
 
         StoreVO storeVO = service.store_get(storeIdx);
+        StoreVO storeVO1 = service.store_getWithStar(storeIdx);
+
         model.addAttribute("storeVO", storeVO);
+        model.addAttribute("storeVO_star", storeVO1);
 
     }
 
@@ -48,16 +51,21 @@ public class StoreController {
 
     }
 
-
     @PostMapping("/register")
     public String registerStoreVO(StoreVO storeVO, MultipartFile oriFilename){
 
-        log.info("controller도착");
         service.saveFile(storeVO, oriFilename);
 
         return "redirect:/store/list";
     }
 
 
+
+/*    @PostMapping("/update")
+    public String updateStoreVO{
+
+
+        return "redirect:/store/list";
+    }*/
 
 }

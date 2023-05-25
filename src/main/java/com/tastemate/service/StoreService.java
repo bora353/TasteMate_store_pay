@@ -29,7 +29,8 @@ public class StoreService {
 
     public List<StoreVO> store_getList() {
 
-        List<StoreVO> storeList = mapper.store_getList();
+        //List<StoreVO> storeList = mapper.store_getList();
+        List<StoreVO> storeList = mapper.store_getList_withStar();
 
         return  storeList;
     }
@@ -38,6 +39,14 @@ public class StoreService {
 
         //StoreVO storeVO = mapper.store_get(storeIdx);
         StoreVO storeVO = mapper.getStoreWithMenu(storeIdx);
+
+        return storeVO;
+    }
+
+    public StoreVO store_getWithStar(int storeIdx) {
+
+        StoreVO storeVO = mapper.getStoreWithStar(storeIdx);
+
         return storeVO;
     }
 

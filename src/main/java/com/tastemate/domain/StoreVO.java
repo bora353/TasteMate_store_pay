@@ -29,4 +29,8 @@ public class StoreVO {
   // join
   private List<MenuVO> menuVO;
 
+  // join
+  private StarVO starVO;
+
+
 }

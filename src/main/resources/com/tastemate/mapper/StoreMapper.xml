@@ -23,6 +23,28 @@
         </collection>
     </resultMap>
 
+    <resultMap id="storeStarResultMap" type="com.tastemate.domain.StoreVO">
+        <id column="STORE_IDX" property="storeIdx"/>
+        <result column="STORE_NAME" property="storeName"/>
+        <result column="CATEGORY1" property="category1"/>
+        <result column="STORE_ADDRESS" property="storeAddress"/>
+        <result column="STORE_LATI" property="storeLati"/>
+        <result column="STORE_LONGI" property="storeLongi"/>
+        <result column="PHONE_NUMBER" property="phoneNumber"/>
+        <result column="STORE_COUNT" property="storeCount"/>
+        <result column="FILENAME" property="filename"/>
+        <collection property="starVO" ofType="StarVO">
+            <id column="STORE_IDX" property="starIdx" />
+            <result column="STORE_IDX" property="storeIdx" />
+            <result column="USER_IDX" property="userIdx" />
+            <result column="STORE_STAR" property="storeStar" />
+<!--            <result column="USER_STAR" property="userStar" />-->
+            <result column="STORE_COMMENT" property="storeComment" />
+        </collection>
+    </resultMap>
+
+
+
     <select id="getStoreWithMenu" resultMap="storeMenuResultMap">
         SELECT s.store_idx, s.user_idx, s.store_name,
         s.category1, s.store_address, s.store_lati, s.store_longi, s.phone_number,
@@ -32,17 +54,33 @@
         WHERE s.store_idx = #{storeIdx}
     </select>
 
-<!--    <resultMap id="menu" type="com.tastemate.domain.MenuVO">
-        <id column="MENU_IDX" property="menuIdx"/>
-        <result column="STORE_IDX" property="storeIdx"/>
-        <result column="FOOD_NAME" property="foodName"/>
-        <result column="PRICE" property="price"/>
-    </resultMap>-->
+
+    <select id="getStoreWithStar" resultMap="storeStarResultMap">
+        SELECT s.store_idx, s.user_idx, s.store_name, avg_star.STORE_STAR, avg_star.STORE_COMMENT
+        FROM STORE s
+                 LEFT OUTER JOIN (
+            SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR, STORE_COMMENT
+            FROM STAR
+            GROUP BY store_idx, STORE_COMMENT
+        ) avg_star ON s.store_idx = avg_star.store_idx
+        where s.store_idx = #{storeIdx}
+        ORDER BY s.store_idx
+    </select>
 
 
 
-    <select id="store_getList" resultType="StoreVO">
-        select * from store
+    <select id="store_getList_withStar" resultMap="storeStarResultMap">
+        <!--select * from store-->
+        SELECT s.store_idx, s.user_idx, s.store_name, s.category1, s.store_address,
+        s.store_lati, s.store_longi, s.phone_number, s.store_count, s.filename,
+        avg_star.STORE_STAR
+        FROM STORE s
+        LEFT OUTER JOIN (
+        SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR
+        FROM STAR
+        GROUP BY store_idx
+        ) avg_star ON s.store_idx = avg_star.store_idx
+        ORDER BY s.store_idx
     </select>
 
     <select id="store_get" resultType="StoreVO">

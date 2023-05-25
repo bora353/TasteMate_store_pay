@@ -18,9 +18,18 @@
         .fs20{
             font-size: 20px;
         }
+        .img_size{
+            width: 250px;
+            height: 250px;
+        }
     </style>
 </head>
 <body>
+
+
+<!--<td th:text="${storeList}"></td>-->
+
+
 
 <!--main-->
 <main>
@@ -46,23 +55,31 @@
         </div>
     </div>
 
-    <!--<td th:text="${storeList}"></td>-->
+<!--    <td th:text="${storeList}"></td>-->
 
     <div class="container">
         <div class="row col-md-12 mb-5">
                 <div th:each="storeVO : ${storeList}" class="image-container mb-5">
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
-                        <img th:src="@{|/store/${storeVO.filename}|}" class="img-fluid <!--img-thumbnail-->" />
+                        <img th:src="@{|/store/${storeVO.filename}|}" class="img-fluid img_size" />
 
                         </br> </br>
                         <span th:text="${storeVO.category1}" class="purple2"></span><br>
 
                         <div class="mb-2">
-                        <span th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}"
+                            <span th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}"
                               class="purple fs20"></span>
 <!-- 별점 -->
-                        <span th:each="i: ${#numbers.sequence(1, 4)}" class="yellow">★</span><br>
+
+                            <!--<span th:each="i: ${#numbers.sequence(1, 4)}" class="yellow">★</span>-->
+
+                            <th:block th:with="starCount=${storeVO.starVO.storeStar}">
+                                <span th:if="${starCount != 0.0}" th:each="i: ${#numbers.sequence(1, starCount)}" class="yellow">★</span>
+                            </th:block>
+
+                            <span th:text="${storeVO.starVO.storeStar}"></span>
+
 <!-- 별점 끝-->
                         </div>
 
