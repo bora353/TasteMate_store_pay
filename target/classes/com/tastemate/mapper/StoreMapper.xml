@@ -40,11 +40,12 @@
             <result column="STORE_STAR" property="storeStar" />
             <result column="USER_STAR" property="userStar" />
             <result column="STORE_COMMENT" property="storeComment" />
+            <result column="USER_NAME" property="userName" />
         </collection>
     </resultMap>
 
 
-
+<!-- 상세보기 화면에서 메뉴랑 가게정보 같이 받기-->
     <select id="getStoreWithMenu" resultMap="storeMenuResultMap">
         SELECT s.store_idx, s.user_idx, s.store_name,
         s.category1, s.store_address, s.store_lati, s.store_longi, s.phone_number,
@@ -54,21 +55,20 @@
         WHERE s.store_idx = #{storeIdx}
     </select>
 
-
+<!-- 상세보기 화면에서 별점 평균만 받기 -->
     <select id="getStoreWithStar" resultMap="storeStarResultMap">
-        SELECT s.store_idx, s.user_idx, s.store_name, avg_star.STORE_STAR,
-            avg_star.STORE_COMMENT, avg_star.star_idx
+        SELECT s.store_idx, s.user_idx, s.store_name, avg_star.store_star
         FROM STORE s
-                 LEFT OUTER JOIN (
-            SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR, STORE_COMMENT,star_idx
-            FROM STAR
-            GROUP BY store_idx, STORE_COMMENT,star_idx
+        LEFT OUTER JOIN (
+        SELECT store_idx, ROUND(AVG(store_star), 1) AS store_star
+        FROM STAR
+        GROUP BY store_idx
         ) avg_star ON s.store_idx = avg_star.store_idx
-        where s.store_idx = #{storeIdx}
+        WHERE s.store_idx = #{storeIdx}
     </select>
 
 
-
+<!-- 메인 맛집 전체보기 화면에서 별점과 같이 받기 -->
     <select id="store_getList_withStar" resultMap="storeStarResultMap">
         <!--select * from store-->
         SELECT s.store_idx, s.user_idx, s.store_name, s.category1, s.store_address,
@@ -88,6 +88,7 @@
         where store_idx = #{storeIdx}
     </select>
 
+    <!-- 맛집 등록하기 -->
     <insert id="store_register" parameterType="StoreVO">
         INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                            STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
@@ -99,6 +100,22 @@
                 )
     </insert>
 
-
+    <!-- 맛집 평가 조회하기 -->
+    <select id="getStoreWithComment" resultMap="storeStarResultMap">
+<!--        select s.store_idx, s.user_idx, s.store_name, r.star_idx, r.store_comment, r.store_star
+        from store s
+                 LEFT OUTER JOIN
+             star r on s.store_idx = r.store_idx
+        WHERE s.store_idx = #{storeIdx}-->
+        select s.store_idx, s.user_idx, s.store_name, r.star_idx,
+        r.store_comment, r.store_star
+        ,m.user_idx, m.user_name
+        from store s
+        LEFT OUTER JOIN
+        star r on s.store_idx = r.store_idx
+        left outer join
+        member m on m.user_idx = r.user_idx
+        WHERE s.store_idx = #{storeIdx}
+    </select>
 
 </mapper>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <link rel="stylesheet" th:href="@{/css/store_css.css}">
+
+</head>
+<body>
+<!--                페이지 네이션 -->
+<div class="row mt-10">
+  <div class="col">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination d-flex align-items-center justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <th:block th:with="start = ${ph.getBeginPage()}, end = ${ph.getEndPage()}">
+          <li class="page-item"
+              th:with="start = ${ph.getBeginPage()}, end = ${ph.getEndPage()}"
+              th:each="pageButton : ${#numbers.sequence(start, end)}">
+            <a class="page-link" href="#"
+               th:href="@{|/board?page=${pageButton}|}"
+               th:text="${pageButton}">1</a></li>
+        </th:block>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!--                페이지 네이션 -->
+</body>
+</html>

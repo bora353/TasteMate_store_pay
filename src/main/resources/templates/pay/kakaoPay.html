@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="header_footer/header :: headerFragment"></th:block>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" th:href="@{/css/store_css.css}">
+<style>
+    .kakaoBtn{
+        background-color: #F7E600;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+    }
+
+</style>
+</head>
+<body>
+
+<div class = "container">
+<h1 class="purple"> 결제화면 </h1>
+
+<form method="post" action="/pay/kakaoPay">
+    <button class="kakaoBtn">카카오페이 결제</button>
+</form>
+
+
+
+</div>
+
+<th:block th:replace="header_footer/footer :: footerFragment"></th:block>
+</body>
+</html>

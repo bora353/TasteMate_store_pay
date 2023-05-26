@@ -40,9 +40,11 @@ public class StoreController {
 
         StoreVO storeVO = service.store_get(storeIdx);
         StoreVO storeVO1 = service.store_getWithStar(storeIdx);
+        StoreVO storeVO2 = service.store_getWithComment(storeIdx);
 
         model.addAttribute("storeVO", storeVO);
         model.addAttribute("storeVO_star", storeVO1);
+        model.addAttribute("storeVO_comment", storeVO2);
 
     }
 

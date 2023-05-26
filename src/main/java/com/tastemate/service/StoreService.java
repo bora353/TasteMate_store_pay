@@ -50,6 +50,13 @@ public class StoreService {
         return storeVO;
     }
 
+    public StoreVO store_getWithComment(int storeIdx) {
+
+        StoreVO storeVO = mapper.getStoreWithComment(storeIdx);
+
+        return storeVO;
+    }
+
 
     public void saveFile(StoreVO storeVO, MultipartFile multipartFile) {
 

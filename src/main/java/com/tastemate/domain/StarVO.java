@@ -15,5 +15,7 @@ public class StarVO {
 
     private String storeComment;
 
+    //user도 추가
+    private String userName;
 
 }

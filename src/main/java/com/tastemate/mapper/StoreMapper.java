@@ -12,7 +12,7 @@ public interface StoreMapper {
     //List<StoreVO> store_getList();
     List<StoreVO> store_getList_withStar();
     StoreVO store_get(int storeIdx);
-    StoreVO getStoreWithStar(int storeIdx);
+
 
     int store_register(StoreVO storeVO);
 
@@ -21,6 +21,8 @@ public interface StoreMapper {
 
     //join
     StoreVO getStoreWithMenu(int storeIdx);
+    StoreVO getStoreWithComment(int storeIdx);
+    StoreVO getStoreWithStar(int storeIdx);
 
 
 }
