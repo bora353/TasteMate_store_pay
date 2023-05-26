@@ -34,7 +34,7 @@ public class StoreController {
        // return "/store/list";
     }
 
-    @GetMapping({"/get", "update"})
+    @GetMapping({"/get", "/update"})
     public void get(int storeIdx, Model model){
         log.info("get 또는 update storeIdx :" + storeIdx);
 

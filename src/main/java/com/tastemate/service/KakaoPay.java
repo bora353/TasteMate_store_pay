@@ -45,11 +45,11 @@ public class KakaoPay {
         params.add("partner_user_id", "bora");
         params.add("item_name", "강사님과 식사하기");
         params.add("quantity", "1");
-        params.add("total_amount", "1234");
+        params.add("total_amount", "123456");
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8080/pay/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8080/kakaoPaySuccessFail");
+        params.add("cancel_url", "http://localhost:8080/pay/kakaoPayCancel");
+        params.add("fail_url", "http://localhost:8080/pay/kakaoPaySuccessFail");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
@@ -93,7 +93,7 @@ public class KakaoPay {
         params.add("partner_order_id", "1234");
         params.add("partner_user_id", "bora");
         params.add("pg_token", pg_token);
-        params.add("total_amount", "1234");
+        params.add("total_amount", "123456");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
