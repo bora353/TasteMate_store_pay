@@ -5,12 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StoreMapper {
 
     //List<StoreVO> store_getList();
-    List<StoreVO> store_getList_withStar(String cuisineSelect);
+    List<StoreVO> store_getList_withStar(Map<String,String> orderMap);
     StoreVO store_get(int storeIdx);
 
 

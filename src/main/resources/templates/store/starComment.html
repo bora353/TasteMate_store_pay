@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="header_footer/header :: headerFragment"></th:block>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/store_css.css}">
+
+  <style>
+    #main {
+      /*min-height: 100vh;*/
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: -webkit-gradient(linear, left bottom, right top, from(#dbc8f8), to(#f1d8ff));
+      background: -webkit-linear-gradient(bottom left, #dbc8f8 0%, #f1d8ff 100%);
+      background: -moz-linear-gradient(bottom left, #dbc8f8 0%, #f1d8ff 100%);
+      background: -o-linear-gradient(bottom left, #dbc8f8 0%, #f1d8ff 100%);
+      background: linear-gradient(to top right, #dbc8f8 0%, #f1d8ff 100%);
+    }
+    .input-form {
+      max-width: 100%;
+
+      margin-top: 80px;
+      margin-bottom: 80px;
+      padding: 32px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+
+
+  .star{
+    display: flex;
+    direction: rtl;
+    border:0;
+
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 1em; /* 상단 여백 조정 */
+
+  }
+  .star label {
+    font-size: 4em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+    text-align: center; /* 가운데 정렬 */
+    flex: 1;
+  }
+
+  .star legend {
+    text-align: center;
+  }
+  input[type=radio]{
+  display: none;
+  }
+  .star label:hover{
+  text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+  }
+  .star label:hover ~ label{
+  text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+  }
+  .star input[type=radio]:checked ~ label{
+  text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+  }
+  .disable {
+  background-color: darkgray;
+  }
+  .container2 {
+    width: 100%;
+  }
+  .yellow{
+    color : #FFA500;
+  }
+
+  </style>
+
+
+</head>
+<body>
+
+  <div class="text-center mt-5" id="main">
+    <div class="input-form-backgroud">
+
+      <form class="input-form">
+
+        <h2 class="purple2 mt-4" >식사는 즐거우셨나요?</h2>
+
+        <div class="col-md-4 mb-3 mt-5 mx-auto">
+          <h5 class="yellow">맛집은 어땠나요?</h5>
+          <fieldset class="star">
+            <input type="radio" name="storeStar" value="5" id="rate1">
+            <label for="rate1" >★</label>
+            <input type="radio" name="storeStar" value="4" id="rate2">
+            <label for="rate2" >★</label>
+            <input type="radio" name="storeStar" value="3" id="rate3">
+            <label for="rate3" >★</label>
+            <input type="radio" name="storeStar" value="2" id="rate4">
+            <label for="rate4" >★</label>
+            <input type="radio" name="storeStar" value="1" id="rate5">
+            <label for="rate5" >★</label>
+          </fieldset>
+        </div>
+
+        <div class="col-md-4 mb-3 mt-5 mx-auto">
+          <h5 class="yellow">Mate는 어땠나요?</h5>
+          <fieldset class="star">
+            <input type="radio" name="userStar" value="5" id="rate6">
+            <label for="rate1" >★</label>
+            <input type="radio" name="userStar" value="4" id="rate7">
+            <label for="rate2" >★</label>
+            <input type="radio" name="userStar" value="3" id="rate8">
+            <label for="rate3" >★</label>
+            <input type="radio" name="userStar" value="2" id="rate9">
+            <label for="rate4" >★</label>
+            <input type="radio" name="userStar" value="1" id="rate10">
+            <label for="rate5" >★</label>
+          </fieldset>
+        </div>
+
+
+        <div class="container2 mx-auto mt-5 ">
+             <div class="card mb-3">
+               <div class="card-header">
+
+                 <h6>맛집 평가를 남겨보세요 :)</h6>
+               </div>
+                 <div class="card-body">
+                           <form>
+                             <div class="row">
+                                 <div class="form-group col-sm-8">
+                                     <input class="form-control" id="newReplyText" type="text" placeholder="댓글 입력...">
+                                 </div>
+
+                                 <div class="form-group col-sm-2">
+                                     <input class="form-control" id="newReplyWriter" type="text" placeholder="작성자">
+                                 </div>
+                                 <div class="form-group col-sm-2">
+                                     <button class="btn btn-primary" type="submit">저장</button>
+                                 </div>
+
+                             </div>
+                         </form>
+                 </div>
+
+             </div>
+          <button class="btn btn-primary">제출하기</button>
+        </div>
+
+
+
+      </form>
+    </div>
+
+  <!--<br><br><br>조건 :: 결제 완료 후, 예약시간 지나면 별점 줄 수 있게-->
+</div>
+
+
+<th:block th:replace="header_footer/footer :: footerFragment"></th:block>
+</body>
+</html>

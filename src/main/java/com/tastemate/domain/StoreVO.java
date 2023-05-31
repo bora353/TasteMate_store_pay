@@ -18,6 +18,7 @@ public class StoreVO {
 
   private double storeLati;
   private double storeLongi;
+  private double distance;
 
   private String phoneNumber;
   private String storeCount;

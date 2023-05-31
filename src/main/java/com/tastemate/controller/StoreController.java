@@ -15,7 +15,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/store/*")
@@ -27,15 +29,37 @@ public class StoreController {
 
     @GetMapping("/list")
     public void get(Model model
-             ,@RequestParam(value="cuisineSelect",required = false) String cuisineSelect){
+             ,@RequestParam(value="cuisineSelect",required = false) String cuisineSelect
+             ,@RequestParam(value="storeStar",required = false) String storeStar
+             ,@RequestParam(value="storeCount",required = false) String storeCount
+             ,@RequestParam(value="storeDistance",required = false) String storeDistance
+    ){
 
         if(cuisineSelect == null){
             cuisineSelect = "없음";
         }
 
-        log.info("cuisineSelect : " + cuisineSelect);
+        if(storeStar == null){
+            storeStar = "없음";
+        }
 
-        List<StoreVO> storeVO = service.store_getList(cuisineSelect);
+        if(storeCount == null){
+            storeCount = "없음";
+        }
+
+        if(storeDistance == null){
+            storeDistance = "없음";
+        }
+
+        Map<String,String> orderMap = new HashMap<>();
+        orderMap.put("cuisineSelect", cuisineSelect);
+        orderMap.put("storeStar", storeStar);
+        orderMap.put("storeCount", storeCount);
+        orderMap.put("storeDistance", storeDistance);
+
+        log.info("orderMap : " + orderMap);
+
+        List<StoreVO> storeVO = service.store_getList(orderMap);
 
         model.addAttribute("storeList", storeVO);
 
@@ -89,5 +113,11 @@ public class StoreController {
 
         return "redirect:/store/list";
     }
+
+    @GetMapping("/starComment")
+    public void starComment(){
+
+    }
+
 
 }

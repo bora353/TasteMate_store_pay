@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -27,10 +28,10 @@ public class StoreService {
 
 
 
-    public List<StoreVO> store_getList(String cuisineSelect) {
+    public List<StoreVO> store_getList(Map<String,String> orderMap) {
 
         //List<StoreVO> storeList = mapper.store_getList();
-        List<StoreVO> storeList = mapper.store_getList_withStar(cuisineSelect);
+        List<StoreVO> storeList = mapper.store_getList_withStar(orderMap);
 
         return  storeList;
     }
@@ -103,11 +104,50 @@ public class StoreService {
         storeVO1.setStoreLongi(storeVO.getStoreLongi());
         storeVO1.setPhoneNumber(storeVO.getPhoneNumber());
 
-        //log.info("Service 잘 변환되었나?" + storeVO1);
+
+
+
+        /* 거리 계산 */
+        // 학원과 맛집 거리를 계산합니다.
+        double lat1 = 37.49877828305107;
+        double lon1 = 127.0316730592617;
+        double lat2 = storeVO.getStoreLati();
+        double lon2 = storeVO.getStoreLongi();
+
+        double distance = distance(lat1, lon1, lat2, lon2);
+        log.info("두 지점 간의 거리: " + distance + "km");
+
+        storeVO1.setDistance(distance*1000);
+
+
+
+
+        log.info("Service 저장될 storeVO1 : " + storeVO1);
 
         int result = mapper.store_register(storeVO1);
 
     }
+
+    public static double distance(double lat1, double lon1, double lat2, double lon2) {
+        final double R = 6371; // 지구 반지름 (단위: km)
+        double dLat = deg2rad(lat2 - lat1);
+        double dLon = deg2rad(lon2 - lon1);
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double distance = R * c; // 두 지점 간의 거리 (단위: km)
+        return distance;
+    }
+
+    public static double deg2rad(double deg) {
+        return deg * (Math.PI/180);
+    }
+
+
+
+
+
 
     public int store_delete(int storeIdx) {
 
@@ -169,6 +209,18 @@ public class StoreService {
         storeVO1.setStoreLati(storeVO.getStoreLati());
         storeVO1.setStoreLongi(storeVO.getStoreLongi());
         storeVO1.setPhoneNumber(storeVO.getPhoneNumber());
+
+        /* 거리 계산 */
+        // 학원과 맛집 거리를 계산합니다.
+        double lat1 = 37.49877828305107;
+        double lon1 = 127.0316730592617;
+        double lat2 = storeVO.getStoreLati();
+        double lon2 = storeVO.getStoreLongi();
+
+        double distance = distance(lat1, lon1, lat2, lon2);
+        log.info("두 지점 간의 거리: " + distance + "km");
+
+        storeVO1.setDistance(distance*1000);
 
         log.info("Service 잘 변환되었나?" + storeVO1);
 

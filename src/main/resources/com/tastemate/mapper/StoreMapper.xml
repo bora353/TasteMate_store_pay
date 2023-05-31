@@ -16,6 +16,7 @@
         <result column="PHONE_NUMBER" property="phoneNumber"/>
         <result column="STORE_COUNT" property="storeCount"/>
         <result column="FILENAME" property="filename"/>
+        <result column="DISTANCE" property="distance"/>
         <collection property="menuVO" ofType="MenuVO">
             <id column="MENU_IDX" property="menuIdx" />
             <result column="STORE_IDX" property="storeIdx" />
@@ -34,6 +35,7 @@
         <result column="PHONE_NUMBER" property="phoneNumber"/>
         <result column="STORE_COUNT" property="storeCount"/>
         <result column="FILENAME" property="filename"/>
+        <result column="DISTANCE" property="distance"/>
         <collection property="starVO" ofType="StarVO" javaType="java.util.List">
             <id column="STAR_IDX" property="starIdx" />
             <result column="STORE_IDX" property="storeIdx" />
@@ -71,10 +73,10 @@
 
 <!-- 메인 맛집 전체보기 화면에서 별점과 같이 받기 -->
     <select id="store_getList_withStar" resultMap="storeStarResultMap"
-                parameterType="string">
+                parameterType="Map">
         <!--select * from store-->
         SELECT s.store_idx, s.user_idx, s.store_name, s.category1, s.store_address,
-        s.store_lati, s.store_longi, s.phone_number, s.store_count, s.filename,
+        s.store_lati, s.store_longi, s.phone_number, s.store_count, s.filename, s.distance,
         avg_star.STORE_STAR
         FROM STORE s
         LEFT OUTER JOIN (
@@ -87,7 +89,24 @@
             where category1 = #{cuisineSelect}
         </if>
 
-        ORDER BY s.store_idx
+        <if test="storeStar != '없음' and storeCount == '없음' and storeDistance == '없음'">
+        ORDER BY avg_star.STORE_STAR desc nulls last
+        </if>
+
+        <if test="storeCount != '없음' and storeStar == '없음' and storeDistance == '없음'">
+            ORDER BY s.store_count desc nulls last
+        </if>
+
+        <if test="storeDistance != '없음' and storeStar == '없음' and storeCount == '없음'">
+            ORDER BY distance nulls last
+        </if>
+
+        <if test="storeStar == '없음' and storeCount == '없음' and storeDistance == '없음'">
+            ORDER BY s.store_idx
+        </if>
+
+
+
     </select>
 
     <select id="store_get" resultType="StoreVO">
@@ -99,11 +118,11 @@
     <insert id="store_register" parameterType="StoreVO">
         INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
                            STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
-        FILENAME
+        FILENAME, DISTANCE
                            )
         VALUES (store_seq.NEXTVAL, #{userIdx}, #{storeName}, #{category1},
                 #{storeAddress}, #{storeLati}, #{storeLongi}, #{phoneNumber}, 0,
-        #{filename}
+        #{filename}, #{distance}
                 )
     </insert>
 
@@ -141,7 +160,8 @@
         STORE_LATI = #{storeLati},
         STORE_LONGI = #{storeLongi},
         PHONE_NUMBER = #{phoneNumber},
-        FILENAME = #{filename}
+        FILENAME = #{filename},
+        DISTANCE = #{distance}
 
         WHERE store_idx = #{storeIdx}
 
