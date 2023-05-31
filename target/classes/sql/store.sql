@@ -130,6 +130,48 @@ VALUES (store_seq.NEXTVAL, 1, '백초밥', '일식',
         '서울 강남구 논현로95길 29-16', 37.5010198294737,127.033862319913, '02-556-8516', 0,
         'tastemate.jpg');
 
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 3, '나이스샤워', '일식',
+        '서울 강남구 테헤란로10길 25 뜨라네아파트', '37.4975892274124', '127.032981074946', '0507-1335-6008', 0,
+        '나이스샤워.jpg');
+
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 3, '봉된장', '한식',
+        '서울 강남구 테헤란로10길 25 뜨라네', '37.4975892274124', '127.032981074946', '070-8800-2345', 0,
+        '봉된장.jpg');
+
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 3, '미엔아이', '중식',
+        '서울 강남구 봉은사로4길 32 1층', '37.5027658420773', '127.026657450782', '0507-1312-0652', 0,
+        '미엔아이.jpg');
+
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 3, '싸다김밥', '한식',
+        '서울 강남구 테헤란로4길 6', '37.4976674173806', '127.029286360295', '02-553-1503', 0,
+        '싸다김밥.jpg');
+
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 4, '역전우동', '한식',
+        '서울 강남구 테헤란로10길 25 104호', '37.4975892274124', '127.032981074946', '02-553-2111', 0,
+        '역전우동.jpg');
+
+INSERT INTO STORE (STORE_IDX, USER_IDX, STORE_NAME, CATEGORY1,
+                   STORE_ADDRESS, STORE_LATI, STORE_LONGI, PHONE_NUMBER, STORE_COUNT,
+                   FILENAME)
+VALUES (store_seq.NEXTVAL, 4, '스노우폭스', '일식',
+        '서울 강남구 테헤란로4길 6', '37.4976674173806', '127.029286360295', '02-556-8082', 0,
+        '스노우폭스.jpg');
+
 COMMIT;
 
 select * from store;

@@ -10,12 +10,13 @@ import java.util.List;
 public interface StoreMapper {
 
     //List<StoreVO> store_getList();
-    List<StoreVO> store_getList_withStar();
+    List<StoreVO> store_getList_withStar(String cuisineSelect);
     StoreVO store_get(int storeIdx);
 
 
     int store_register(StoreVO storeVO);
-
+    int store_update(StoreVO storeVO1);
+    int store_delete(int storeIdx);
 
 
 
@@ -23,6 +24,7 @@ public interface StoreMapper {
     StoreVO getStoreWithMenu(int storeIdx);
     StoreVO getStoreWithComment(int storeIdx);
     StoreVO getStoreWithStar(int storeIdx);
+
 
 
 }

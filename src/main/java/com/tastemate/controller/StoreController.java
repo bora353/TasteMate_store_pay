@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,13 +26,19 @@ public class StoreController {
     private StoreService service;
 
     @GetMapping("/list")
-    public void get(Model model){
+    public void get(Model model
+             ,@RequestParam(value="cuisineSelect",required = false) String cuisineSelect){
 
-        List<StoreVO> storeVO = service.store_getList();
+        if(cuisineSelect == null){
+            cuisineSelect = "없음";
+        }
+
+        log.info("cuisineSelect : " + cuisineSelect);
+
+        List<StoreVO> storeVO = service.store_getList(cuisineSelect);
 
         model.addAttribute("storeList", storeVO);
 
-       // return "/store/list";
     }
 
     @GetMapping({"/get", "/update"})
@@ -63,11 +70,24 @@ public class StoreController {
 
 
 
-/*    @PostMapping("/update")
-    public String updateStoreVO{
+    @PostMapping("/update")
+    public String updateStoreVO(StoreVO storeVO, MultipartFile oriFilename){
+
+        log.info("Controller storeVO : " + storeVO);
+        service.updateFile(storeVO, oriFilename);
 
 
         return "redirect:/store/list";
-    }*/
+    }
+
+    @GetMapping("/delete")
+    public String delete(int storeIdx){
+
+        log.info("delete storeIdx: " + storeIdx) ;
+        int result = service.store_delete(storeIdx);
+        log.info("delete 완료 : " + result) ;
+
+        return "redirect:/store/list";
+    }
 
 }

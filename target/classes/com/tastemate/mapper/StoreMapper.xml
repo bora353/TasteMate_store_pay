@@ -8,6 +8,7 @@
     <resultMap id="storeMenuResultMap" type="com.tastemate.domain.StoreVO">
         <id column="STORE_IDX" property="storeIdx"/>
         <result column="STORE_NAME" property="storeName"/>
+        <result column="USER_IDX" property="userIdx"/>
         <result column="CATEGORY1" property="category1"/>
         <result column="STORE_ADDRESS" property="storeAddress"/>
         <result column="STORE_LATI" property="storeLati"/>
@@ -47,7 +48,7 @@
 
 <!-- 상세보기 화면에서 메뉴랑 가게정보 같이 받기-->
     <select id="getStoreWithMenu" resultMap="storeMenuResultMap">
-        SELECT s.store_idx, s.user_idx, s.store_name,
+        SELECT s.store_idx, s.user_idx, s.store_name, s.user_idx,
         s.category1, s.store_address, s.store_lati, s.store_longi, s.phone_number,
         s.store_count, s.filename, m.menu_idx, m.food_name, m.price
         FROM STORE s
@@ -69,7 +70,8 @@
 
 
 <!-- 메인 맛집 전체보기 화면에서 별점과 같이 받기 -->
-    <select id="store_getList_withStar" resultMap="storeStarResultMap">
+    <select id="store_getList_withStar" resultMap="storeStarResultMap"
+                parameterType="string">
         <!--select * from store-->
         SELECT s.store_idx, s.user_idx, s.store_name, s.category1, s.store_address,
         s.store_lati, s.store_longi, s.phone_number, s.store_count, s.filename,
@@ -80,6 +82,11 @@
         FROM STAR
         GROUP BY store_idx
         ) avg_star ON s.store_idx = avg_star.store_idx
+
+        <if test="cuisineSelect != '없음'">
+            where category1 = #{cuisineSelect}
+        </if>
+
         ORDER BY s.store_idx
     </select>
 
@@ -117,5 +124,27 @@
         member m on m.user_idx = r.user_idx
         WHERE s.store_idx = #{storeIdx}
     </select>
+
+    <!-- 맛집 삭제 -->
+    <delete id="store_delete">
+        delete from store
+        where store_idx = #{storeIdx}
+    </delete>
+
+    <!-- 맛집 업데이트 -->
+    <update id="store_update" parameterType="StoreVO">
+        UPDATE store
+        SET
+        STORE_NAME = #{storeName},
+        CATEGORY1 = #{category1},
+        STORE_ADDRESS = #{storeAddress},
+        STORE_LATI = #{storeLati},
+        STORE_LONGI = #{storeLongi},
+        PHONE_NUMBER = #{phoneNumber},
+        FILENAME = #{filename}
+
+        WHERE store_idx = #{storeIdx}
+
+    </update>
 
 </mapper>

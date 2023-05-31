@@ -24,15 +24,67 @@
 
 
 
-<div class = "container">
+<!--<div class = "container">
 <h1 class="purple"> 결제화면 </h1>
 
 <form method="post" action="/pay/kakaoPay">
     <button class="kakaoBtn">카카오페이 결제</button>
 </form>
-</div>
+</div>-->
+
+    <h2>예약화면</h2>
+    <button class="kakaoBtn">카카오페이 결제</button>
+<br><br>
+    <form method="post" action="/pay/refund">
+        <button>카카오페이 결제 취소!!</button>
+    </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    jQuery(function($){
+
+        $(".kakaoBtn").click(function(){
+            //alert("클릭");
+
+            //let으로 정보 전달해주기
+
+            $.ajax({
+                type : 'get',
+                url : '/pay/kakaoPay123',
+                data : {
+                    //보낼정보들 (일단 임의값 테스트)
+                    total_amount : 54321,
+                    item_name : '배고프다'
+                },
+                dataType : 'json',
+                success : function(readyResponse){
+                    console.log("성공!");
+                    console.log(readyResponse);
+                    console.log(readyResponse.next_redirect_pc_url);
 
 
+                   // var tid = readyResponse.tid;
+                    //console.log(readyResponse.respond.tid);
+
+                   // var kakaoPayReadyVO = JSON.parse(readyResponse);
+                    //console.log(kakaoPayReadyVO);
+                    location.href = readyResponse.next_redirect_pc_url;
+                },
+                error: function(xhr, status, error) {
+                    console.log("에러 발생");
+                    console.log(xhr);
+                }
+            });
+
+
+        });
+
+
+    });
+
+
+
+</script>
 
 
 

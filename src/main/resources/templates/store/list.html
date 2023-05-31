@@ -35,13 +35,14 @@
     <div class="container">
         <h1 class="text-center mt-5 mb-5 purple2">IT WILL 맛집</h1>
 
-            <button class="btn btn-warning">가성비순</button>
+            <button class="btn btn-warning">별점순</button>
             <button class="btn btn-warning">인기순</button>
             <button class="btn btn-warning">거리순</button>
 
         <div class="col-md-2 float-right">
             <div class="form-group">
-                <select class="form-control" id="cuisine-select">
+                <form id="myForm" method="get">
+                <select class="form-control" name="cuisineSelect" onchange="submitForm()">
                     <option selected disabled>FOOD STYLE</option>
                     <option value="한식">한식</option>
                     <option value="중식">중식</option>
@@ -50,6 +51,7 @@
                     <option value="퓨전">퓨전</option>
                     <option value="푸드코트">푸드코트</option>
                 </select>
+                </form>
             </div>
         </div>
     </div>
@@ -77,7 +79,8 @@
                                 <span th:if="${starCount != 0.0}" th:each="i: ${#numbers.sequence(1, starCount)}" class="yellow">★</span>
                             </th:block>
 
-                            <span th:text="${storeVO.starVO[0].storeStar}"></span>
+                            <span th:if="${storeVO.starVO[0].storeStar != 0.0}"
+                                  th:text="${storeVO.starVO[0].storeStar}"></span>
 
 <!-- 별점 끝-->
                         </div>
@@ -100,6 +103,15 @@
 
 </main>
 
+
+<script>
+    function submitForm() {
+        var form = document.getElementById("myForm");
+        var selectedValue = form.querySelector('select[name="cuisineSelect"]').value;
+        form.action = "/store/list?cuisineSelect=" + encodeURIComponent(selectedValue);
+        form.submit();
+    }
+</script>
 
 
 <th:block th:replace="header_footer/footer :: footerFragment"></th:block>
