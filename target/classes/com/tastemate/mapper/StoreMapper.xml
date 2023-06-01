@@ -92,7 +92,6 @@ FROM (
         SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR
         FROM STAR
         GROUP BY store_idx
-
     ) avg_star ON s.store_idx = avg_star.store_idx
     WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}
     ORDER BY store_idx ASC
