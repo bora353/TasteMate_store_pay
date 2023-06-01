@@ -11,7 +11,7 @@ public class StarVO {
     private int storeIdx;
     private int userIdx;
     private double storeStar;
-    private int userStar;
+    private double userStar;
 
     private String storeComment;
 

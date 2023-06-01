@@ -1,6 +1,9 @@
 package com.tastemate.controller;
 
+import com.tastemate.domain.StarVO;
 import com.tastemate.domain.StoreVO;
+import com.tastemate.domain.paging.Criteria;
+import com.tastemate.domain.paging.PageDTO;
 import com.tastemate.service.StoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +29,11 @@ public class StoreController {
 
     @GetMapping("/list")
     public void get(Model model
-             ,@RequestParam(value="cuisineSelect",required = false) String cuisineSelect
-             ,@RequestParam(value="storeStar",required = false) String storeStar
-             ,@RequestParam(value="storeCount",required = false) String storeCount
-             ,@RequestParam(value="storeDistance",required = false) String storeDistance
+             , @RequestParam(value="cuisineSelect",required = false) String cuisineSelect
+             , @RequestParam(value="storeStar",required = false) String storeStar
+             , @RequestParam(value="storeCount",required = false) String storeCount
+             , @RequestParam(value="storeDistance",required = false) String storeDistance
+             , Criteria cri
     ){
 
         if(cuisineSelect == null){
@@ -51,17 +52,26 @@ public class StoreController {
             storeDistance = "없음";
         }
 
-        Map<String,String> orderMap = new HashMap<>();
+        Map<String,Object> orderMap = new HashMap<>();
         orderMap.put("cuisineSelect", cuisineSelect);
         orderMap.put("storeStar", storeStar);
         orderMap.put("storeCount", storeCount);
         orderMap.put("storeDistance", storeDistance);
+        orderMap.put("cri", cri);
+
 
         log.info("orderMap : " + orderMap);
 
         List<StoreVO> storeVO = service.store_getList(orderMap);
-
         model.addAttribute("storeList", storeVO);
+
+        /*페이징*/
+        int total = service.store_totalCnt(cri);
+        PageDTO pageMaker = new PageDTO(cri, total);
+        model.addAttribute("pageMaker", pageMaker);
+
+        log.info("total : " + total);
+        log.info("new PageDTO(cri, total) : " + pageMaker);
 
     }
 
@@ -116,6 +126,21 @@ public class StoreController {
 
     @GetMapping("/starComment")
     public void starComment(){
+
+    }
+
+    @PostMapping("/starComment")
+    public String starCommentStarVO(StarVO starVO){
+        log.info("starVO : " + starVO);
+
+        int result = service.store_starComment(starVO);
+        log.info("starVO result : " + result);
+
+        return "redirect:/store/here";  //추후 수정 필요!
+    }
+
+    @GetMapping("/here")
+    public void here(){
 
     }
 

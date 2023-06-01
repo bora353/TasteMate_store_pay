@@ -1,19 +1,20 @@
 package com.tastemate.service;
 
+import com.tastemate.domain.StarVO;
 import com.tastemate.domain.StoreVO;
+import com.tastemate.domain.paging.Criteria;
 import com.tastemate.mapper.StoreMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -28,12 +29,17 @@ public class StoreService {
 
 
 
-    public List<StoreVO> store_getList(Map<String,String> orderMap) {
+    public List<StoreVO> store_getList(Map<String, Object> orderMap) {
 
         //List<StoreVO> storeList = mapper.store_getList();
-        List<StoreVO> storeList = mapper.store_getList_withStar(orderMap);
+        List<StoreVO> storeList = mapper.store_getList_withStar_withPaging(orderMap);
 
         return  storeList;
+    }
+
+    public int store_totalCnt(Criteria cri) {
+
+        return mapper.getTotalCount(cri);
     }
 
     public StoreVO store_get(int storeIdx) {
@@ -118,9 +124,6 @@ public class StoreService {
         log.info("두 지점 간의 거리: " + distance + "km");
 
         storeVO1.setDistance(distance*1000);
-
-
-
 
         log.info("Service 저장될 storeVO1 : " + storeVO1);
 
@@ -226,4 +229,13 @@ public class StoreService {
 
         int result = mapper.store_update(storeVO1);
     }
+
+    public int store_starComment(StarVO starVO) {
+
+        int result = mapper.store_starComment(starVO);
+
+        return result;
+    }
+
+
 }

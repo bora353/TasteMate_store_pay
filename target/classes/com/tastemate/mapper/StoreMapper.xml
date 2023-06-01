@@ -72,43 +72,68 @@
 
 
 <!-- 메인 맛집 전체보기 화면에서 별점과 같이 받기 -->
-    <select id="store_getList_withStar" resultMap="storeStarResultMap"
-                parameterType="Map">
-        <!--select * from store-->
-        SELECT s.store_idx, s.user_idx, s.store_name, s.category1, s.store_address,
+    <select id="store_getList_withStar_withPaging" resultMap="storeStarResultMap"
+            parameterType="Map">
+        <![CDATA[
+
+SELECT *
+FROM (
+    SELECT s.store_idx, s.user_idx, s.store_name, s.category1, s.store_address,
         s.store_lati, s.store_longi, s.phone_number, s.store_count, s.filename, s.distance,
-        avg_star.STORE_STAR
-        FROM STORE s
-        LEFT OUTER JOIN (
+        avg_star.STORE_STAR,
+        ROWNUM AS RNUM
+    FROM (
+        SELECT store_idx, user_idx, store_name, category1, store_address,
+            store_lati, store_longi, phone_number, store_count, filename, distance
+        FROM STORE
+        ORDER BY store_idx ASC
+    ) s
+    LEFT OUTER JOIN (
         SELECT store_idx, ROUND(AVG(store_star), 1) AS STORE_STAR
         FROM STAR
         GROUP BY store_idx
-        ) avg_star ON s.store_idx = avg_star.store_idx
 
-        <if test="cuisineSelect != '없음'">
-            where category1 = #{cuisineSelect}
-        </if>
+    ) avg_star ON s.store_idx = avg_star.store_idx
+    WHERE ROWNUM <= #{cri.pageNum} * #{cri.amount}
+    ORDER BY store_idx ASC
+)
+WHERE RNUM > ((#{cri.pageNum} - 1) * #{cri.amount})
 
-        <if test="storeStar != '없음' and storeCount == '없음' and storeDistance == '없음'">
-        ORDER BY avg_star.STORE_STAR desc nulls last
-        </if>
+]]>
 
-        <if test="storeCount != '없음' and storeStar == '없음' and storeDistance == '없음'">
-            ORDER BY s.store_count desc nulls last
-        </if>
 
-        <if test="storeDistance != '없음' and storeStar == '없음' and storeCount == '없음'">
-            ORDER BY distance nulls last
-        </if>
+<if test="cuisineSelect != '없음'">
+and category1 = #{cuisineSelect}
+</if>
 
-        <if test="storeStar == '없음' and storeCount == '없음' and storeDistance == '없음'">
-            ORDER BY s.store_idx
-        </if>
+        <choose>
+            <when test="storeStar != '없음'">
+                order by STORE_STAR DESC NULLS LAST
+            </when>
+            <when test="storeCount != '없음'">
+                order by store_count DESC NULLS LAST
+            </when>
+            <when test="storeDistance != '없음'">
+                order by distance ASC NULLS LAST
+            </when>
+            <otherwise>
+                ORDER BY store_idx ASC
+            </otherwise>
+
+        </choose>
 
 
 
     </select>
 
+    <!--페이징 처리시 전체 글수 확인-->
+    <select id="getTotalCount" parameterType="Criteria"
+            resultType="integer">
+        SELECT count(*)
+        FROM store
+    </select>
+
+    <!--상세보기-->
     <select id="store_get" resultType="StoreVO">
         select * from store
         where store_idx = #{storeIdx}
@@ -166,5 +191,12 @@
         WHERE store_idx = #{storeIdx}
 
     </update>
+
+    <!--별점,코멘트 입력하기-->
+    <insert id="store_starComment" parameterType="StarVO">
+        INSERT INTO star(STAR_IDX, STORE_IDX, USER_IDX, STORE_STAR, USER_STAR, STORE_COMMENT)
+        values (star_seq.nextval,#{storeIdx},#{userIdx},#{storeStar},#{userStar},#{storeComment})
+    </insert>
+
 
 </mapper>

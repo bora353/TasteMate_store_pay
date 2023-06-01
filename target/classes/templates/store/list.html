@@ -3,13 +3,13 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<th:block th:replace="header_footer/header :: headerFragment"></th:block>
-
-
 <head>
     <meta charset="UTF-8">
     <title>store list</title>
+
+
     <link rel="stylesheet" th:href="@{/css/store_css.css}">
+    <th:block th:replace="header_footer/header :: headerFragment"></th:block>
 
     <style>
         .yellow {
@@ -24,6 +24,56 @@
         }
         .red{
             color: tomato;
+        }
+
+/*페이징*/
+        .pagination-container {
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        .pagination-item {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .pagination-item a {
+            position: relative;
+            display: inline-block;
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 8px 16px 10px;
+            transition: all 0.2s;
+        }
+
+        .pagination-item a:before {
+            z-index: -1;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            content: "";
+            top: 0;
+            left: 0;
+            background-color: pink;
+            border-radius: 24px;
+            transform: scale(0);
+            transition: all 0.2s;
+        }
+
+        .pagination-item a:hover,
+        .pagination-item.active a {
+            color: #fff;
+        }
+
+        .pagination-item a:hover:before,
+        .pagination-item.active a:before {
+            transform: scale(1);
+        }
+
+        .pagination-item.prev,
+        .pagination-item.next {
+            margin: 0 10px;
         }
     </style>
 </head>
@@ -105,7 +155,35 @@
     </div>
 
 
+<!--페이징시작!!!!-->
+    <!-- 이전 버튼 -->
+    <div class="pagination-container">
 
+    <th:block th:if="${pageMaker.prev}">
+        <li class="pageMaker_btn prev pagination-item">
+            <a href="javascript:void(0)" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pageMaker.cri.makeQueryString(pageMaker.pageStart - 1)} ]])">이전</a>
+        </li>
+    </th:block>
+
+    <!-- 페이지 번호 -->
+    <th:block th:with="pageMaker = ${pageMaker}">
+        <th:block th:each="num : *{#numbers.sequence(pageMaker.pageStart, pageMaker.pageEnd)}">
+            <li class="pageMaker_btn pagination-item" th:classappend="${pageMaker.cri.pageNum == num} ? 'active' : ''">
+                <a href="javascript:void(0)" th:text="${num}" th:onclick="movePage([[ ${#request.requestURI} ]],[[ ${pageMaker.cri.makeQueryString(num)} ]])"></a>
+            </li>
+        </th:block>
+    </th:block>
+
+
+    <!-- 다음 버튼 -->
+    <th:block th:if="${pageMaker.next}">
+        <li class="pageMaker_btn pagination-item next">
+            <a href="javascript:void(0)" th:onclick="movePage( [[ ${#request.requestURI} ]], [[ ${pageMaker.cri.makeQueryString(pageMaker.pageEnd + 1)} ]])">다음</a>
+        </li>
+    </th:block>
+
+    <p th:text="${pageMaker}"></p>
+    </div>
 
 
 </main>
@@ -118,6 +196,15 @@
         form.action = "/store/list?cuisineSelect=" + encodeURIComponent(selectedValue);
         form.submit();
     }
+
+    /* ![CDATA[ */
+    function movePage(uri, queryString) {
+        console.log(uri);
+        console.log(queryString);
+
+        location.href = uri + queryString;
+    }
+    /* ]]*/
 </script>
 
 

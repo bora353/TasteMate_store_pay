@@ -89,42 +89,42 @@
 </head>
 <body>
 
-  <div class="text-center mt-5" id="main">
+  <div class="text-center" id="main">
     <div class="input-form-backgroud">
 
-      <form class="input-form">
+      <form class="input-form" th:action="@{/store/starComment}" method="post">
 
         <h2 class="purple2 mt-4" >식사는 즐거우셨나요?</h2>
 
         <div class="col-md-4 mb-3 mt-5 mx-auto">
           <h5 class="yellow">맛집은 어땠나요?</h5>
-          <fieldset class="star">
-            <input type="radio" name="storeStar" value="5" id="rate1">
-            <label for="rate1" >★</label>
-            <input type="radio" name="storeStar" value="4" id="rate2">
-            <label for="rate2" >★</label>
-            <input type="radio" name="storeStar" value="3" id="rate3">
-            <label for="rate3" >★</label>
-            <input type="radio" name="storeStar" value="2" id="rate4">
-            <label for="rate4" >★</label>
-            <input type="radio" name="storeStar" value="1" id="rate5">
-            <label for="rate5" >★</label>
+          <fieldset class="storeStar star">
+            <input type="radio" name="storeStar" value="5" id="storerate1">
+            <label for="storerate1" >★</label>
+            <input type="radio" name="storeStar" value="4" id="storerate2">
+            <label for="storerate2" >★</label>
+            <input type="radio" name="storeStar" value="3" id="storerate3">
+            <label for="storerate3" >★</label>
+            <input type="radio" name="storeStar" value="2" id="storerate4">
+            <label for="storerate4" >★</label>
+            <input type="radio" name="storeStar" value="1" id="storerate5">
+            <label for="storerate5" >★</label>
           </fieldset>
         </div>
 
         <div class="col-md-4 mb-3 mt-5 mx-auto">
           <h5 class="yellow">Mate는 어땠나요?</h5>
-          <fieldset class="star">
-            <input type="radio" name="userStar" value="5" id="rate6">
-            <label for="rate1" >★</label>
-            <input type="radio" name="userStar" value="4" id="rate7">
-            <label for="rate2" >★</label>
-            <input type="radio" name="userStar" value="3" id="rate8">
-            <label for="rate3" >★</label>
-            <input type="radio" name="userStar" value="2" id="rate9">
-            <label for="rate4" >★</label>
-            <input type="radio" name="userStar" value="1" id="rate10">
-            <label for="rate5" >★</label>
+          <fieldset class="userStar star">
+            <input type="radio" name="userStar" value="5" id="userrate1">
+            <label for="userrate1" >★</label>
+            <input type="radio" name="userStar" value="4" id="userrate2">
+            <label for="userrate2" >★</label>
+            <input type="radio" name="userStar" value="3" id="userrate3">
+            <label for="userrate3" >★</label>
+            <input type="radio" name="userStar" value="2" id="userrate4">
+            <label for="userrate4" >★</label>
+            <input type="radio" name="userStar" value="1" id="userrate5">
+            <label for="userrate5" >★</label>
           </fieldset>
         </div>
 
@@ -136,25 +136,24 @@
                  <h6>맛집 평가를 남겨보세요 :)</h6>
                </div>
                  <div class="card-body">
-                           <form>
+
                              <div class="row">
-                                 <div class="form-group col-sm-8">
-                                     <input class="form-control" id="newReplyText" type="text" placeholder="댓글 입력...">
+                                 <div class="form-group col-sm-9">
+                                     <input class="form-control" name="storeComment" type="text" placeholder="댓글 입력...">
                                  </div>
-
-                                 <div class="form-group col-sm-2">
-                                     <input class="form-control" id="newReplyWriter" type="text" placeholder="작성자">
+                                 <div class="form-group col-sm-3">
+                                     <input class="form-control" name="userIdx" type="text" placeholder="userIdx">
                                  </div>
-                                 <div class="form-group col-sm-2">
-                                     <button class="btn btn-primary" type="submit">저장</button>
-                                 </div>
-
                              </div>
-                         </form>
                  </div>
-
              </div>
-          <button class="btn btn-primary">제출하기</button>
+
+            <button class="btn btn-primary">제출하기</button><br>
+            일단 storeIdx 임의값!! 나중에 session에서 넣어주기!<br>
+            <input type="hidden" name="storeIdx" value="3">
+           <!-- th:value="${storeVO.storeIdx}"-->
+            조건 :: 결제 완료 후, 예약시간 지나면 별점 줄 수 있게
+
         </div>
 
 
@@ -162,7 +161,7 @@
       </form>
     </div>
 
-  <!--<br><br><br>조건 :: 결제 완료 후, 예약시간 지나면 별점 줄 수 있게-->
+
 </div>
 
 
