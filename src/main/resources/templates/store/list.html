@@ -19,12 +19,24 @@
             font-size: 20px;
         }
         .img_size{
-            width: 250px;
-            height: 250px;
+            width: 350px;
+            height: 300px;
         }
         .red{
             color: tomato;
         }
+        .purple {
+            color: #601599;
+        }
+        .purple2{
+            color : #9C91B3;
+        }
+        .purple3{
+            background-color : #601599;
+            color: white;
+            border : none;
+        }
+
 
 /*페이징*/
         .pagination-container {
@@ -55,7 +67,7 @@
             content: "";
             top: 0;
             left: 0;
-            background-color: pink;
+            background-color: #E9DFED;
             border-radius: 24px;
             transform: scale(0);
             transition: all 0.2s;
@@ -76,6 +88,28 @@
             margin: 0 10px;
         }
 
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        .image-container {
+            margin-bottom: 80px;
+        }
+
+        .image-container {
+            display: inline-block;
+            width: 23%;
+            margin: 10px;
+
+        }
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -85,15 +119,15 @@
 
 
 <!--main-->
-<main>
+<main class="container">
     <div class="container">
-        <h1 class="text-center mt-5 mb-5 purple2">IT WILL 맛집</h1>
+        <h1 class="text-center mt-5 mb-5 purple">이 맛집 어때요?</h1>
 
-            <a class="btn btn-warning"
+            <a class="btn btn-warning purple3"
                     th:href="@{/store/list(storeStar='별점순')}">별점순</a>
-            <a class="btn btn-warning"
+            <a class="btn btn-warning purple3"
                     th:href="@{/store/list(storeCount='인기순')}">인기순</a>
-            <a class="btn btn-warning"
+            <a class="btn btn-warning purple3"
                     th:href="@{/store/list(storeDistance='거리순')}">거리순</a>
 
         <div class="col-md-2 float-right">
@@ -116,7 +150,7 @@
 <!--    <td th:text="${storeList}"></td>-->
 
     <div class="container">
-        <div class="row col-md-12 ">
+        <div class="row col-xl-12">
                 <div th:each="storeVO : ${storeList}" class="image-container mb-5">
 
                     <a th:href="@{/store/get(storeIdx=${storeVO.storeIdx})}">
@@ -128,7 +162,7 @@
 
                         <div class="mb-2">
                             <span th:text="${storeVO.storeIdx} + '. ' + ${storeVO.storeName}"
-                              class="purple fs20"></span>
+                              class="fs20" style="color: black"></span>
 <!-- 별점 -->
 
                             <!--<span th:each="i: ${#numbers.sequence(1, 4)}" class="yellow">★</span>-->
@@ -138,18 +172,18 @@
                             </th:block>
 
                             <span th:if="${storeVO.starVO[0].storeStar != 0.0}"
-                                  th:text="${storeVO.starVO[0].storeStar}"></span>
+                                  th:text="${storeVO.starVO[0].storeStar}" style="color: #601599"></span>
 
 <!-- 별점 끝-->
                         </div>
 
-                        <div th:text="${storeVO.storeAddress}" class="gray"></div>
+                        <div th:text="${storeVO.storeAddress}" class="purple2"></div>
                     </a>
                 </div>
         </div>
 
         <div class="text-right">
-        <a th:href="@{/store/register}" class="btn btn-danger">
+        <a th:href="@{/store/register}" class="btn btn-danger purple3">
             나만의 맛집등록
         </a></div><br><br><br>
 
