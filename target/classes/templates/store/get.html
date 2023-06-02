@@ -161,6 +161,11 @@
                 <div class="col-auto mx-1">
                     <a th:href="@{/store/update(storeIdx=${storeVO.storeIdx})}" class="btn btn-dark">맛집 정보 수정</a>
                 </div>
+
+
+                <a th:href="@{/bookmark/insert(storeIdx=${storeVO.storeIdx}, storeName=${storeVO.storeName})}" class="btn btn-primary">북마크</a>
+                <a th:href="@{/booking/bookingInsert(storeIdx=${storeVO.storeIdx})}" class="btn btn-warning">예약하기</a>
+                
             </div>
 
 
