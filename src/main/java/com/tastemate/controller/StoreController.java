@@ -136,11 +136,11 @@ public class StoreController {
         int result = service.store_starComment(starVO);
         log.info("starVO result : " + result);
 
-        return "redirect:/store/here";  //추후 수정 필요!
+        return "redirect:/store/main";  //추후 수정 필요!
     }
 
-    @GetMapping("/here")
-    public void here(){
+    @GetMapping("/main")
+    public void main(){
 
     }
 
