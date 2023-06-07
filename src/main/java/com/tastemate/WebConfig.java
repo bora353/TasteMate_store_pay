@@ -1,6 +1,6 @@
 package com.tastemate;
 
-import com.tastemate.interceptor.LogInterceptor;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
@@ -10,14 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LogInterceptor())
-        .order(1)
-        .addPathPatterns("/**")
-        .excludePathPatterns("/css/**", "/*.ico", "/error");
-  }
-
+/* 파일업로드 관련 */
   private String resourcePath = "/store/**";
   private String savePath = "file:///C:/upload/";
 
@@ -26,4 +19,10 @@ public class WebConfig implements WebMvcConfigurer {
       registry.addResourceHandler(resourcePath)
               .addResourceLocations(savePath);
   }
+
+
+
+/* 로그인 관련 추가하기 !!! */
+
+
 }

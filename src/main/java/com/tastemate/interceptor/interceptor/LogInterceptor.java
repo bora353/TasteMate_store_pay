@@ -1,4 +1,4 @@
-package com.tastemate.interceptor;
+package com.tastemate.interceptor.interceptor;
 
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;

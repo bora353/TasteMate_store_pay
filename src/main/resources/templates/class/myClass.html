@@ -16,6 +16,18 @@
     color : #FFA500;
     }
 
+    .backgroundPurple {
+        background-color: #9C91B3;
+    }
+
+    .center {
+        text-align: center;
+        align-content: center;
+    }
+    .red {
+        color : crimson;
+    }
+
     </style>
 </head>
 <body>
@@ -27,7 +39,7 @@
     <div class="row">
         <div class="col-xl-2">
         </div>
-        <h1>[[${userStar.get(0).getUserClass}]] 강의장</h1>
+        <h1 class="center">[[${userStar.get(0).getUserClass}]] 강의장</h1>
         <br>
     </div>
     <br>
@@ -51,9 +63,9 @@
         </div>
         <div class="col-xl-1">
         </div>
-
-
     </div>
+
+
     <hr>
     <div th:each="memberVO : ${userStar}">
         <div class="row">
@@ -64,8 +76,9 @@
                 <p class="mb-2 purple2">[[${memberVO.getUserName()}]]</p>
             </div>
             <div class="col-xl-2">
-                <th:block th:with="starCount=${memberVO.starVO.userStar}">
-                    <span class="yellow" th:if="${starCount != 0.0}" th:each="i: ${#numbers.sequence(1, starCount)}">★</span>
+                <th:block th:if="${memberVO.getUserIdx() != session.vo.getUserIdx()}" th:with="starCount=${memberVO.starVO.userStar}">
+
+                    <span  class="yellow" th:if="${starCount != 0.0}" th:each="i: ${#numbers.sequence(1, starCount)}">★</span>
                 </th:block>
             </div>
             <div class="col-xl-2">
@@ -75,21 +88,17 @@
             <div class="col-xl-2">
                 <div class="row">
                 <div class="justify-content-start">
-                <p th:text="${memberVO.getUserMbti()}" class="mb-2"></p><span>  </span>
+                <span style="display: inline-block; width: 40px" th:text="${memberVO.getUserMbti()}" class="mb-2"></span>
                 </div>
-                <div class="justify-content-center">
-                <th:block th:with="heartCount=${idxAndMatch.get(memberVO.getUserIdx())}">
-
+                <div class="justify-content-end">
+                    <span style="display: inline-block; width: 5px"></span>
+                <th:block th:if="${memberVO.getUserIdx() != session.vo.getUserIdx()}" th:with="heartCount=${idxAndMatch.get(memberVO.getUserIdx())}">
                     <span class="red" th:if="${heartCount != 0.0}" th:each="i: ${#numbers.sequence(1, heartCount)}">♥</span>
                 </th:block>
                 </div>
                 </div>
             </div>
-<!--            <div class="col-lg-1">-->
-<!--                <th:block th:with="heartCount=${idxAndMatch.get(memberVO.getUserIdx())}">-->
-<!--                    <span class="red" th:if="${heartCount != 0.0}" th:each="i: ${#numbers.sequence(1, heartCount)}">♥</span>-->
-<!--                </th:block>-->
-<!--            </div>-->
+
             <div class="col-xl-2">
                 <p th:text="남자" th:if="${memberVO.getUserGender() == 0}" class="mb-2"></p>
                 <p th:text="여자" th:if="${memberVO.getUserGender() != 0}" class="mb-2"></p>

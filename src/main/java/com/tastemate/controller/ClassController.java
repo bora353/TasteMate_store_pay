@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,10 +34,12 @@ public class ClassController {
 
 
     @GetMapping("/get")
-    public String get_class(Model model, HttpServletRequest request, HttpSession session, @RequestParam int userClass) {
+    public String get_class(Model model, HttpServletRequest request, HttpSession session,
+                            @RequestParam int userClass) {
         MemberVO memberVO = (MemberVO) session.getAttribute("vo");
         String userMbti = memberVO.getUserMbti();
         MemberMbti memberMbti = MemberMbti.valueOf(userMbti);
+        //int userClass = memberVO.getUserClass();
 
         //List<MemberVO> classList = classService.getClassList(userClass);
         //System.out.println("classList = " + classList);
@@ -54,7 +57,7 @@ public class ClassController {
         model.addAttribute("idxAndMatch", idxAndMatch);
 
 
-
+        //redirect.addAttribute("userClass", userClass);
 
         return "/class/myClass";
     }

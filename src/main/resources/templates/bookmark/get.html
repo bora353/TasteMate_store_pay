@@ -25,8 +25,8 @@
                 <h3 class="mb-2 purple2">
                     <i class="bi bi-bookmark-star"></i> [[${bookmarkVO.storeName}]]</h3>
                 <p th:text="${bookmarkVO.storeVO.storeAddress}" class="mb-2"></p>
-                <a th:href="@{/bookmark/delete(bookmarkIdx=${bookmarkVO.getBookmarkIdx()})}" class="btn btn-primary">삭제</a>
-                <a th:href="@{/booking/bookingInsert(userId='choi', storeIdx=${bookmarkVO.getStoreIdx()})}" class="btn btn-warning">예약하기</a>
+                <a th:href="@{/bookmark/delete(bookmarkIdx=${bookmarkVO.getBookmarkIdx()})}" style="background-color: #8E48C7; border: none;" class="btn btn-primary">삭제</a>
+                <a th:href="@{/booking/bookingInsert(userId='choi', storeIdx=${bookmarkVO.getStoreIdx()})}" style="background-color: #9C91B3; border: none;" class="btn btn-warning">예약하기</a>
                 <hr>
             </div>
         </div>

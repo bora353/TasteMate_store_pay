@@ -47,8 +47,10 @@ public class BookingController {
     @GetMapping ("/bookingInsert")
     public void booking(Model model, HttpServletRequest request, HttpSession session, int storeIdx) {
         MemberVO memberVO = (MemberVO) session.getAttribute("vo");
+
         String userId = memberVO.getUserId();
         String userName = memberVO.getUserName();;
+
         StoreVO storeVO = storeService.store_get(storeIdx);
         System.out.println("storeVO = " + storeVO);
         model.addAttribute("storeVO", storeVO);
